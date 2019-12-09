@@ -2350,7 +2350,7 @@ void apply_deprecated_dht_settings(settings_pack& sett, bdecode_node const& s)
 				, nullptr, nullptr, true, false));
 
 		ADD_OUTSTANDING_ASYNC("session_impl::on_i2p_accept");
-		i2p_stream& s = boost::get<i2p_stream>(*m_i2p_listen_socket);
+		i2p_stream& s = std::get<i2p_stream>(*m_i2p_listen_socket);
 		s.set_command(i2p_stream::cmd_accept);
 		s.set_session_id(m_i2p_conn.session_id());
 
@@ -2774,7 +2774,7 @@ void apply_deprecated_dht_settings(settings_pack& sett, bdecode_node const& s)
 			// for SSL connections, incoming_connection() is called
 			// after the handshake is done
 			ADD_OUTSTANDING_ASYNC("session_impl::ssl_handshake");
-			boost::get<ssl_stream<tcp::socket>>(**iter).async_accept_handshake(
+			std::get<ssl_stream<tcp::socket>>(**iter).async_accept_handshake(
 				std::bind(&session_impl::ssl_handshake, this, _1, iter->get()));
 		}
 		else
@@ -2798,7 +2798,7 @@ void apply_deprecated_dht_settings(settings_pack& sett, bdecode_node const& s)
 		// for SSL connections, incoming_connection() is called
 		// after the handshake is done
 		ADD_OUTSTANDING_ASYNC("session_impl::ssl_handshake");
-		boost::get<ssl_stream<utp_stream>>(**iter).async_accept_handshake(
+		std::get<ssl_stream<utp_stream>>(**iter).async_accept_handshake(
 			std::bind(&session_impl::ssl_handshake, this, _1, iter->get()));
 	}
 
@@ -2891,7 +2891,7 @@ void apply_deprecated_dht_settings(settings_pack& sett, bdecode_node const& s)
 		}
 
 		if (!m_settings.get_bool(settings_pack::enable_incoming_tcp)
-			&& boost::get<tcp::socket>(&s))
+			&& std::get_if<tcp::socket>(&s))
 		{
 #ifndef TORRENT_DISABLE_LOGGING
 			session_log("<== INCOMING CONNECTION [ rejected TCP connection ]");
