@@ -1,3 +1,5 @@
+	* libtorrent now requires C++17 to build
+
 2.0 release
 
 	* add ip_filter to session_params
