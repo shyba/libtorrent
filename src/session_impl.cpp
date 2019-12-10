@@ -207,11 +207,6 @@ namespace libtorrent {
 
 namespace aux {
 
-	constexpr ip_source_t session_interface::source_dht;
-	constexpr ip_source_t session_interface::source_peer;
-	constexpr ip_source_t session_interface::source_tracker;
-	constexpr ip_source_t session_interface::source_router;
-
 void apply_deprecated_dht_settings(settings_pack& sett, bdecode_node const& s)
 {
 	bdecode_node val;
