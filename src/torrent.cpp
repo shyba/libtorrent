@@ -722,7 +722,7 @@ bool is_downloading_state(int const st)
 		if (blocks_in_piece == 0)
 		{
 			// this shouldn't actually happen
-			boost::shared_array<char> buf;
+			std::shared_ptr<char[]> buf;
 			m_ses.alerts().emplace_alert<read_piece_alert>(
 				get_handle(), piece, buf, 0);
 			return;

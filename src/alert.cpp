@@ -151,7 +151,7 @@ namespace libtorrent {
 
 	read_piece_alert::read_piece_alert(aux::stack_allocator& alloc
 		, torrent_handle const& h
-		, piece_index_t p, boost::shared_array<char> d, int s)
+		, piece_index_t p, std::shared_ptr<char[]> d, int s)
 		: torrent_alert(alloc, h)
 		, buffer(std::move(d))
 		, piece(p)

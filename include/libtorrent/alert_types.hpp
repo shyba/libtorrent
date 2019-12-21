@@ -65,10 +65,6 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "libtorrent/socket_type.hpp"
 #include "libtorrent/aux_/deprecated.hpp"
 
-#include "libtorrent/aux_/disable_warnings_push.hpp"
-#include <boost/shared_array.hpp>
-#include "libtorrent/aux_/disable_warnings_pop.hpp"
-
 #include <bitset>
 #include <cstdarg> // for va_list
 
@@ -294,7 +290,7 @@ TORRENT_VERSION_NAMESPACE_2
 	{
 		// internal
 		TORRENT_UNEXPORT read_piece_alert(aux::stack_allocator& alloc, torrent_handle const& h
-			, piece_index_t p, boost::shared_array<char> d, int s);
+			, piece_index_t p, std::shared_ptr<char[]> d, int s);
 		TORRENT_UNEXPORT read_piece_alert(aux::stack_allocator& alloc, torrent_handle h
 			, piece_index_t p, error_code e);
 
@@ -304,7 +300,7 @@ TORRENT_VERSION_NAMESPACE_2
 		std::string message() const override;
 
 		error_code const error;
-		boost::shared_array<char> const buffer;
+		std::shared_ptr<char[]> const buffer;
 		piece_index_t const piece;
 		int const size;
 

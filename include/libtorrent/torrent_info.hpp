@@ -45,10 +45,6 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <map>
 #include <memory>
 
-#include "libtorrent/aux_/disable_warnings_push.hpp"
-#include <boost/shared_array.hpp>
-#include "libtorrent/aux_/disable_warnings_pop.hpp"
-
 #include "libtorrent/config.hpp"
 #include "libtorrent/fwd.hpp"
 #include "libtorrent/bdecode.hpp"
@@ -591,7 +587,7 @@ namespace aux {
 		// ``metadata()`` returns a the raw info section of the torrent file. The size
 		// of the metadata is returned by ``metadata_size()``.
 		int metadata_size() const { return m_info_section_size; }
-		boost::shared_array<char> metadata() const
+		std::shared_ptr<char[]> metadata() const
 		{ return m_info_section; }
 
 		aux::vector<aux::vector<sha256_hash>, file_index_t>& merkle_trees();
@@ -708,8 +704,7 @@ namespace aux {
 		// this is a copy of the info section from the torrent.
 		// it use maintained in this flat format in order to
 		// make it available through the metadata extension
-		// TODO: change the type to std::shared_ptr in C++17
-		boost::shared_array<char> m_info_section;
+		std::shared_ptr<char[]> m_info_section;
 
 		// this is a pointer into the m_info_section buffer
 		// pointing to the first byte of the first SHA-1 hash

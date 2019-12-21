@@ -1,3 +1,4 @@
+	* replaced boost::shared_array with shared_ptr, in API
 	* libtorrent now requires C++17 to build
 
 2.0 release

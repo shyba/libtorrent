@@ -443,7 +443,7 @@ namespace libtorrent {
 		void set_progress_ppm(int p) { m_progress_ppm = std::uint32_t(p); }
 		struct read_piece_struct
 		{
-			boost::shared_array<char> piece_data;
+			std::shared_ptr<char[]> piece_data;
 			int blocks_left;
 			bool fail;
 			error_code error;
