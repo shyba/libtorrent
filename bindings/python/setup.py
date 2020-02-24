@@ -146,7 +146,8 @@ if '--bjam' in sys.argv:
             os.mkdir('libtorrent')
         except Exception:
             pass
-        shutil.copyfile('libtorrent' + file_ext,
+        path = [path for path in os.listdir() if path.startswith('libtorrent') and path.endswith(file_ext)][0]
+        shutil.copyfile(path,
                         'build/lib/libtorrent' + file_ext)
 
     packages = ['libtorrent']

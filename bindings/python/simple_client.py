@@ -7,11 +7,12 @@ from __future__ import print_function
 import libtorrent as lt
 import time
 import sys
+import binascii
 
 ses = lt.session({'listen_interfaces': '0.0.0.0:6881'})
 
-info = lt.torrent_info(sys.argv[1])
-h = ses.add_torrent({'ti': info, 'save_path': '.'})
+info = binascii.unhexlify(sys.argv[1].strip())
+h = ses.add_torrent({'info_hash': info, 'save_path': '.'})
 s = h.status()
 print('starting', s.name)
 
